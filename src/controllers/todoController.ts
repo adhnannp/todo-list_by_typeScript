@@ -14,8 +14,7 @@ export const allTodos=(req:Request,res:Response)=>{
 export const addTodo = (req: Request, res: Response) => {
     try {
         const { title } = req.body;
-        todoList.addTodo(title); // Add new todo
-        // res.status(200).json({ success: true, message: 'Added successfully' });
+        todoList.addTodo(title); 
         res.redirect('/')
     } catch (error) {
         res.status(500).json({ success: false, message: error });
@@ -26,7 +25,6 @@ export const updateTodo=(req:Request,res:Response)=>{
         const id=parseInt(req.params.id);
         const {title}=req.body;
         todoList.updateTodo(id,title);
-        // res.status(200).json({ success: true, message: 'Updated successfully' });
         res.redirect('/')
     } catch (error) {
         res.status(500).json({ success: false, message: error });
@@ -36,7 +34,6 @@ export const deleteTodo=(req:Request,res:Response)=>{
     try {
         const id=parseInt(req.params.id);
         todoList.deleteTodo(id);
-        // res.status(200).json({ success: true, message: 'deleted successfully' });
         res.redirect('/')
     } catch (error) {
         res.status(500).json({ success: false, message: error });

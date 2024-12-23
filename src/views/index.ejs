@@ -10,44 +10,140 @@
             rel="stylesheet" />
         <style>
             body {
-                background-color: #f8f9fa;
-                padding: 30px;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                min-height: 100vh;
+                padding: 40px 20px;
             }
             .todo-container {
-                max-width: 700px;
+                max-width: 800px;
                 margin: auto;
+                background: rgba(255, 255, 255, 0.95);
+                padding: 30px;
+                border-radius: 20px;
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
             }
             .todo-item {
                 margin-bottom: 15px;
-                border-radius: 10px;
-                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+                border-radius: 16px;
+                border: none;
+                background: #ffffff;
+                transition: all 0.3s ease;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.07);
+            }
+            .todo-item:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
             }
             .todo-title {
                 margin: 0;
                 font-size: 1.1rem;
                 font-weight: 500;
+                color: #4a5568;
             }
             .completed {
                 text-decoration: line-through;
-                color: #6c757d;
+                color: #a0aec0;
             }
             .todo-actions button {
-                margin-left: 10px;
+                margin-left: 8px;
+                font-weight: 500;
             }
             .todo-actions .btn {
-                transition: background-color 0.3s ease;
+                transition: all 0.3s ease;
+                border-radius: 12px;
+                padding: 8px 16px;
             }
-            .todo-actions .btn:hover {
-                opacity: 0.9;
+            .btn-success {
+                background-color: #48bb78;
+                border-color: #48bb78;
+            }
+            .btn-danger {
+                background-color: #f56565;
+                border-color: #f56565;
+            }
+            .btn-primary {
+                background-color: #4299e1;
+                border-color: #4299e1;
             }
             .completed-section {
-                margin-top: 30px;
-                padding-top: 15px;
-                border-top: 2px dashed #e9ecef;
+                margin-top: 40px;
+                padding-top: 20px;
+                border-top: 2px dashed #e2e8f0;
             }
             .todo-list-title {
-                margin-bottom: 20px;
-                font-weight: 600;
+                margin-bottom: 25px;
+                font-weight: 700;
+                color: #2d3748;
+                font-size: 1.5rem;
+                position: relative;
+                display: inline-block;
+            }
+            .todo-list-title::after {
+                content: '';
+                position: absolute;
+                bottom: -8px;
+                left: 0;
+                width: 40%;
+                height: 3px;
+                background: linear-gradient(90deg, #667eea, transparent);
+                border-radius: 2px;
+            }
+            .form-control {
+                border: 2px solid #e2e8f0;
+                border-radius: 12px;
+                padding: 12px 20px;
+                font-size: 1rem;
+                transition: all 0.3s ease;
+            }
+            .form-control:focus {
+                border-color: #667eea;
+                box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.25);
+            }
+            .input-group {
+                gap: 10px;
+            }
+            .input-group > * {
+                border-radius: 12px !important;
+            }
+            button {
+                border-radius: 12px;
+                padding: 8px 16px;
+                border: 2px solid #e2e8f0;
+                background-color: #fff;
+                color: #4a5568;
+                font-weight: 500;
+                transition: all 0.3s ease;
+            }
+            button:hover {
+                background-color: #f7fafc;
+                transform: translateY(-1px);
+            }
+            .text-secondary {
+                color: #718096 !important;
+            }
+            h1 {
+                color: #2d3748;
+                font-weight: 800;
+                font-size: 2.5rem;
+                margin-bottom: 1.5rem;
+                background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+            @media (max-width: 768px) {
+                .todo-actions {
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 8px;
+                    margin-top: 10px;
+                }
+                .todo-actions button {
+                    margin-left: 0;
+                }
+                .todo-item > div {
+                    flex-direction: column;
+                    align-items: flex-start !important;
+                }
             }
         </style>
     </head>
@@ -66,7 +162,7 @@
                         class="d-flex justify-content-between align-items-center">
                         <h5
                             class="todo-title <%= todo.isCompleted ? 'completed' : '' %>">
-                            <%= todo.id %>: <%= todo.title %>
+                            <%= todo.title %>
                         </h5>
                         <div class="todo-actions">
                             <form
@@ -78,7 +174,7 @@
                                     %>>Mark Complete</button>
                             </form>
                             <a href="/updateTodo/<%= todo.id %>">
-                                <button>update</button>
+                                <button>Update</button>
                             </a>
                             <form
                                 action="/deleteTodo/<%= todo.id %>?_method=DELETE"
@@ -117,7 +213,7 @@
                     <div
                         class="d-flex justify-content-between align-items-center">
                         <h5 class="todo-title completed">
-                            <%= todo.id %>: <%= todo.title %>
+                            <%= todo.title %>
                         </h5>
                         <div class="todo-actions">
                             <form
@@ -127,9 +223,8 @@
                                     class="btn btn-success btn-sm"
                                     %>>Mark Not Complete</button>
                             </form>
-
                             <a href="/updateTodo/<%= todo.id %>">
-                                <button>update</button>
+                                <button>Update</button>
                             </a>
                             <form
                                 action="/deleteTodo/<%= todo.id %>?_method=DELETE"
